@@ -44,12 +44,12 @@ print(employee_df[['Attrition', 'Over18', 'OverTime']].head(5))
 employee_df.drop(['EmployeeCount', 'EmployeeNumber', 'StandardHours','Over18'], axis=1, inplace=True)
 
 # Histograma de todas las columnas numéricas
-employee_df.hist(
+'''employee_df.hist(
     figsize=(18, 12),  # 🔹 Aumenta el tamaño general
     bins=20,  # 🔹 Controla el número de barras
     color='red',  # 🔹 Color del histograma
     edgecolor='black'  # 🔹 Borde negro para contraste
-)
+)'''
 
 #plt.suptitle("Distribución de variables numéricas del dataset", fontsize=16)
 #plt.tight_layout(pad=2.0, rect=[0, 0, 1, 0.96])  # 🔹 Ajuste automático + espacio para el título
@@ -73,12 +73,36 @@ print(empledo_permanecent.describe())
 # Matriz de correlación solo con columnas numéricas
 correlation = employee_df.select_dtypes(include='number').corr()
 
-# Tamaño de figura grande
-plt.figure(figsize=(20, 20))
+#f, ax =plt.subplots(figsize=(20,20))
+#sns.heatmap(correlation,annot=True)
 
-f, ax =plt.subplots(figsize=(20,20))
-sns.heatmap(correlation,annot=True)
+#plt.tight_layout()  # 🔹 Asegura que nada se solape
+#plt.show()
 
-plt.tight_layout()  # 🔹 Asegura que nada se solape
+## Parte-3
+#plt.figure(figsize=[25,12])
+#sns.countplot(x='Age',hue='Attrition',data=employee_df,palette='Set1')
+#plt.show()
+
+# Crear una figura con 4 subplots (filas = 4, columnas = 1)
+fig, axes = plt.subplots(4, 1, figsize=(15, 20))  # 4 filas, 1 columna
+
+# Primer gráfico
+sns.countplot(x='JobRole', hue='Attrition', data=employee_df, ax=axes[0])
+axes[0].set_title('Attrition por JobRole')
+
+# Segundo gráfico
+sns.countplot(x='MaritalStatus', hue='Attrition', data=employee_df, ax=axes[1])
+axes[1].set_title('Attrition por Estado Civil')
+
+# Tercer gráfico
+sns.countplot(x='JobInvolvement', hue='Attrition', data=employee_df, ax=axes[2])
+axes[2].set_title('Attrition por Nivel de Involucramiento')
+
+# Cuarto gráfico
+sns.countplot(x='JobLevel', hue='Attrition', data=employee_df, ax=axes[3])
+axes[3].set_title('Attrition por Nivel de Puesto')
+
+# Ajustar layout
+plt.tight_layout()
 plt.show()
-
